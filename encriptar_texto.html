@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Encriptador de texto</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+	<h1>Encriptador de texto</h1>
+	<p>Ingrese un texto en minúsculas sin acentos ni caracteres especiales:</p>
+	<textarea id="texto" rows="4" cols="50"></textarea><br>
+	<button onclick="encriptar()">Encriptar</button>
+	<button onclick="desencriptar()">Desencriptar</button><br><br>
+
+    <div class="logo-container">
+        <div class="logo">J</div>
+      </div>
+      
+
+	<div class="container">
+		<p>Texto encriptado:</p>
+		<textarea id="texto-encriptado" class="text" rows="4" cols="50" readonly></textarea><br>
+		<button onclick="copiar()">Copiar encriptado</button><br><br>
+		<p>Texto desencriptado:</p>
+		<textarea id="texto-desencriptado" class="text" rows="4" cols="50" readonly></textarea>
+        <button onclick="copiarDesencriptado()">Copiar desencriptado</button><br><br>
+	</div>
+
+	<script>
+		function encriptar() {
+			var texto = document.getElementById("texto").value;
+			var texto_encriptado = "";
+			for (var i = 0; i < texto.length; i++) {
+				switch (texto[i]) {
+					case "e":
+						texto_encriptado += "enter";
+						break;
+					case "i":
+						texto_encriptado += "imes";
+						break;
+					case "a":
+						texto_encriptado += "ai";
+						break;
+					case "o":
+						texto_encriptado += "ober";
+						break;
+					case "u":
+						texto_encriptado += "ufat";
+						break;
+					default:
+						texto_encriptado += texto[i];
+				}
+				document.getElementById("texto-encriptado").value = texto_encriptado;
+			}
+		}
+
+		function desencriptar() {
+			var texto_encriptado = document.getElementById("texto-encriptado").value;
+			var texto_desencriptado = "";
+			for (var i = 0; i < texto_encriptado.length; i++) {
+				if (texto_encriptado.slice(i, i+5) === "enter") {
+					texto_desencriptado += "e";
+					i += 4;
+				} else if (texto_encriptado.slice(i, i+4) === "imes") {
+					texto_desencriptado += "i";
+					i += 3;
+				} else if (texto_encriptado.slice(i, i+2) === "ai") {
+					texto_desencriptado += "a";
+					i += 1;
+				} else if (texto_encriptado.slice(i, i+4) === "ober") {
+					texto_desencriptado += "o";
+					i += 3;
+				} else if (texto_encriptado.slice(i, i+4) === "ufat") {
+					texto_desencriptado += "u";
+					i += 3;
+				} else {
+					texto_desencriptado += texto_encriptado[i];
+				}
+				document.getElementById("texto-desencriptado").value = texto_desencriptado;
+			}
+		}
+
+        function copiar() {
+
+             var texto_encriptado = document.getElementById("texto-encriptado");
+            texto_encriptado.select();
+           texto_encriptado.setSelectionRange(0, 99999);
+           document.execCommand("copy");
+           alert("Texto encriptado copiado al portapapeles.");
+
+         }
+
+         function copiarDesencriptado() {
+
+           var texto_desencriptado = document.getElementById("texto-desencriptado");
+            texto_desencriptado.select();
+            texto_desencriptado.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("Texto desencriptado copiado al portapapeles.");
+
+         }
+
+	</script>
+</body>
+<footer>
+    <p>Challenge One G5</p>
+  </footer>
+</html>
